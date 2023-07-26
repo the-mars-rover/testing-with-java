@@ -1,0 +1,50 @@
+version: '3.1'
+
+services:
+
+  limitsdb:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 3333:5432 # Just exposing port for us to connect to manually for testing purposes
+    environment:
+      - 'POSTGRES_DB=limitsdb'
+      - 'POSTGRES_USER=user'
+      - 'POSTGRES_PASSWORD=password'
+    volumes:
+      - ../limits-api/src/test/resources/init-limitsdb.sql:/docker-entrypoint-initdb.d/init.sql
+
+  limitsapi:
+    build:
+        context: ../limits-api
+        dockerfile: ../limits-api/Dockerfile
+    ports:
+        - 8081:8080 # Just exposing port for us to connect to manually for testing purposes
+    environment:
+      - 'SPRING_PROFILES_ACTIVE=local'
+    depends_on:
+      - limitsdb
+
+  transactionsdb:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 3334:5432 # Just exposing port for us to connect to manually for testing purposes
+    environment:
+      - 'POSTGRES_DB=transactionsdb'
+      - 'POSTGRES_USER=user'
+      - 'POSTGRES_PASSWORD=password'
+    volumes:
+      - ../transactions-api/src/test/resources/init-transactionsdb.sql:/docker-entrypoint-initdb.d/init.sql
+
+  transactionsapi:
+    build:
+      context: ../transactions-api
+      dockerfile: ../transactions-api/Dockerfile
+    ports:
+      - 8082:8080 # Just exposing port for us to connect to manually for testing purposes
+    environment:
+      - 'SPRING_PROFILES_ACTIVE=local'
+    depends_on:
+      - transactionsdb
+      - limitsapi

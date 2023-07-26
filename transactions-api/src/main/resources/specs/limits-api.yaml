@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: Limits API
+  description: Provides transaction limits for provided account numbers
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: 'http://localhost:8081'
+    description: Locally hosted server
+paths:
+  /limits:
+    get:
+      tags:
+        - Limits
+      operationId: getAccountLimits
+      summary: Returns the transaction limits for the provided account number.
+      parameters:
+        - name: accountNumber
+          in: query
+          required: true
+          description: The account number for which to return transaction limits.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AccountLimitsResponse
+                properties:
+                  min:
+                    type: number
+                    format: double
+                    multipleOf: 0.01
+                    example: 10.00
+                  max:
+                    type: number
+                    format: double
+                    multipleOf: 0.01
+                    example: 10000.00
+        "400":
+          description: The specified account number is invalid (possibly not provided).
+        "404":
+          description: An account with the specified account number was not found.
+        default:
+          description: Unexpected error

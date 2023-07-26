@@ -1,0 +1,14 @@
+{
+  "name" : "limits-api_200",
+  "request" : {
+    "url" : "/limits?accountNumber=000000001",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"min\": 10.0,\"max\": 10000.0}",
+    "headers" : {
+      "Content-Type" : "application/json"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: Transactions API
+  description: Processes transactions between accounts.
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: 'http://localhost:8082'
+    description: Locally hosted server
+paths:
+  /transactions:
+    post:
+      operationId: postTransaction
+      summary: Processes transactions between accounts.
+      requestBody:
+        description: The transaction to process.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: TransactionRequest
+              required:
+                - from
+                - to
+                - amount
+              properties:
+                from:
+                  type: string
+                  example: "123456789"
+                to:
+                  type: string
+                  example: "87654321"
+                amount:
+                  type: number
+                  format: double
+                  multipleOf: 0.01
+                  example: 10.00
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: The specified account number is invalid (possibly not provided).
+        "404":
+          description: An account with the specified account number was not found.
+        default:
+          description: Unexpected error
