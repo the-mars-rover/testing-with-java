@@ -1,6 +1,7 @@
 package com.example.limitsapi.testing;
 
 import com.example.limitsapi.entity.AccountLimitsEntity;
+import org.openapitools.model.AccountLimitsResponse;
 
 public class MockTestData {
 
@@ -12,5 +13,12 @@ public class MockTestData {
         mockAccountLimitsEntity.setMin(10.0);
         mockAccountLimitsEntity.setMax(10000.0);
         return mockAccountLimitsEntity;
+    }
+
+    public static AccountLimitsResponse getAccountLimitsResponse() {
+        AccountLimitsResponse mockAccountLimitsResponse = new AccountLimitsResponse();
+        mockAccountLimitsResponse.setMin(10.0);
+        mockAccountLimitsResponse.setMax(10000.0);
+        return mockAccountLimitsResponse;
     }
 }

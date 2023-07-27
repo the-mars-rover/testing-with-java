@@ -21,7 +21,7 @@ guidelines to follow when unit testing.
 
 ## Integration Testing the Limits API
 
-In the [transactions-api/src/test](transactions-api/src/test) directory, you will find an integration tests of the 
+In the [transactions-api/src/test](transactions-api/src/test) directory, you will find an integration test of the 
 Transactions API. In the `badtests` package, we have some examples of what not to do when integration testing. In this
 case we have used `testcontainers` for integration testing. So, in order to run these tests, you will need to have
 Docker installed and running on your machine.
